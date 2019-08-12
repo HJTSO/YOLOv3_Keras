@@ -22,7 +22,7 @@ class YOLO(object):
     _defaults = {
         "model_path": 'model_data/yolo.h5',
         "anchors_path": 'model_data/yolo_anchors.txt',
-        "classes_path": 'model_data/coco_classes.txt',
+        "classes_path": 'model_data/LCD_classes.txt',
         "score" : 0.3,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
@@ -210,3 +210,16 @@ def detect_video(yolo, video_path, output_path=""):
             break
     yolo.close_session()
 
+
+if __name__ == '__main__':
+    yolo=YOLO()
+    path = 'VOC2007/JPEGImages/19.jpg'
+    try:
+        image = Image.open(path)
+    except:
+        print('Open Error! Try again!')
+    else:
+        r_image, _ = yolo.detect_image(image)
+        r_image.show()
+
+    yolo.close_session()
