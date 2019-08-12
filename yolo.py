@@ -20,7 +20,7 @@ from keras.utils import multi_gpu_model
 
 class YOLO(object):
     _defaults = {
-        "model_path": 'model_data/yolo.h5',
+        "model_path": 'logs/000/trained_weights.h5',
         "anchors_path": 'model_data/yolo_anchors.txt',
         "classes_path": 'model_data/LCD_classes.txt',
         "score" : 0.3,
@@ -206,20 +206,21 @@ def detect_video(yolo, video_path, output_path=""):
         cv2.imshow("result", result)
         if isOutput:
             out.write(result)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if  cv2.waitKey(1) & 0xFF == ord('q'):
             break
     yolo.close_session()
 
 
 if __name__ == '__main__':
     yolo=YOLO()
-    path = 'VOC2007/JPEGImages/19.jpg'
+    path = 'VOC2007/JPEGImages/38.jpg'
     try:
         image = Image.open(path)
     except:
         print('Open Error! Try again!')
     else:
-        r_image, _ = yolo.detect_image(image)
+        # r_image, _ = yolo.detect_image(image)
+        r_image = yolo.detect_image(image)
         r_image.show()
 
     yolo.close_session()
